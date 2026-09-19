@@ -187,6 +187,97 @@
       background: rgba(239,190,71,.28);
     }
 
+    .media-card {
+      border: 1px solid rgba(23, 63, 53, .2);
+      background: rgba(255, 250, 240, .9);
+      box-shadow: 8px 8px 0 rgba(185, 83, 54, .08);
+    }
+
+    .resource-card {
+      display: block;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(23, 63, 53, .18);
+      background: rgba(255,255,255,.7);
+      color: var(--forest);
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-2px);
+      background: #fffaf0;
+      box-shadow: 6px 6px 0 rgba(23, 63, 53, .06);
+    }
+
+    .resource-card .icon-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(239, 190, 71, .24);
+      color: var(--terracotta);
+    }
+
+    .gallery-grid img {
+      transition: transform .25s ease, filter .25s ease;
+      cursor: pointer;
+    }
+
+    .gallery-grid img:hover {
+      transform: translateY(-3px);
+      filter: saturate(1.05) contrast(1.02);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(11, 20, 17, 0.82);
+      z-index: 9999;
+      padding: 24px;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 1100px;
+      width: min(88vw, 1100px);
+      max-height: 90vh;
+      background: #f7f0df;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 30px 70px rgba(0,0,0,.35);
+    }
+
+    .lightbox-content img {
+      display: block;
+      width: 100%;
+      height: min(80vh, 820px);
+      object-fit: cover;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.85);
+      color: var(--forest);
+      font-size: 22px;
+      cursor: pointer;
+    }
+
     .close-detail {
       border: 1px solid rgba(23, 63, 53, .4);
       color: var(--forest);
@@ -305,6 +396,14 @@
                 <p class="fact-label">Mapa mental</p>
                 <p class="mt-1 text-lg font-semibold text-[#173f35]">La vida purépecha enlaza altiplano, cuencas lacustres, bosques y suelos volcánicos.</p>
               </div>
+
+              <div class="mt-8">
+                <p class="top-line text-[10px] font-bold text-[#b95336]">Galería del territorio</p>
+                <div class="gallery-grid mt-4 grid gap-4 md:grid-cols-2">
+                  <img class="h-52 w-full rounded-2xl object-cover" src="https://memoriaprecolombina.com/wp-content/uploads/2025/07/the-tarascan-empire-2188.png" alt="Mapa del Imperio Purépecha y sus relaciones con otros pueblos del territorio mesoamericano." />
+                  <img class="h-52 w-full rounded-2xl object-cover" src="https://pueblosoriginarios.com/meso/occidente/purepecha/imagenes/tzintzuntzan.jpg" alt="Tzintzuntzan, centro principal del territorio Purépecha." />
+                </div>
+              </div>
             </div>
           </article>
 
@@ -313,11 +412,20 @@
             <div class="relative min-h-[270px] overflow-hidden bg-[#b95336] p-8 text-[#fffaf0]">
               <i data-lucide="languages" class="absolute right-7 top-7 opacity-30" width="105" height="105" aria-hidden="true"></i>
               <p class="relative z-10 max-w-sm text-3xl font-bold leading-tight">"P'urhépecha" nombra a un pueblo y a una lengua con una identidad singular.</p>
+              <div align="center">
+                <div class="mt-6">
+                  <a href="https://pueblosoriginarios.com/lenguas/purepecha.php" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-2xl border border-[#f6d2b8] bg-gradient-to-r from-[#b95336] via-[#c76a42] to-[#d98d63] px-5 py-3 text-sm font-bold uppercase tracking-[0.08em] text-[#fffaf0] shadow-[0_14px_28px_rgba(185,83,54,0.28)] ring-2 ring-[#f7e6d8] transition duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_18px_32px_rgba(185,83,54,0.32)]">
+                    <i data-lucide="external-link" width="16" height="16" aria-hidden="true"></i>
+                    Ver más sobre la lengua
+                  </a>
+                </div>
+              </div>
             </div>
             <div class="p-7 md:p-10">
               <p class="detail-index">02 · LA PALABRA</p>
               <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Purépecha: una lengua aislada</h2>
               <p class="mt-5 text-lg leading-snug text-[#324a40]">El purépecha, también llamado tarasco, es una lengua aislada: no tiene parentesco lingüístico conocido con otras lenguas mesoamericanas ni con ninguna otra familia lingüística documentada. Su continuidad expresa una memoria colectiva transmitida en la familia, la comunidad, las ceremonias y el trabajo cotidiano.</p>
+              
               <div class="fact-box mt-6 p-4">
                 <p class="fact-label">Identidad viva</p>
                 <p class="mt-1 text-lg font-semibold text-[#173f35]">Hablar la lengua es sostener saberes, afectos y una manera propia de nombrar el mundo.</p>
@@ -431,6 +539,67 @@
 
         </section>
 
+        <section class="mt-12 grid gap-6 lg:grid-cols-[1.15fr_.85fr]">
+          <div class="media-card overflow-hidden rounded-2xl p-4 md:p-5">
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <p class="top-line text-[10px] font-bold text-[#b95336]">Video</p>
+                <h3 class="mt-1 text-2xl font-bold text-[#173f35]">Documental breve</h3>
+              </div>
+              <i data-lucide="video" class="text-[#b95336]" width="24" height="24" aria-hidden="true"></i>
+            </div>
+            <div class="overflow-hidden rounded-xl border border-[#173f35]/20">
+              <iframe
+                class="aspect-video w-full"
+                src="https://www.youtube.com/embed/zc4nrlDBm4I?si=PY3W53SV2dLPSjQx"
+                title="Video relacionado con la cultura Purépecha"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+
+          <div class="media-card rounded-2xl p-4 md:p-5">
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <p class="top-line text-[10px] font-bold text-[#b95336]">Links</p>
+                <h3 class="mt-1 text-2xl font-bold text-[#173f35]">Recursos útiles</h3>
+              </div>
+              <i data-lucide="link-2" class="text-[#b95336]" width="22" height="22" aria-hidden="true"></i>
+            </div>
+            <div class="space-y-3">
+              <a class="resource-card rounded-xl" href="https://es.wikipedia.org/wiki/Pueblo_pur%C3%A9pecha" target="_blank" rel="noopener noreferrer">
+                <div class="flex items-start gap-3">
+                  <span class="icon-wrap"><i data-lucide="book-open" width="18" height="18" aria-hidden="true"></i></span>
+                  <div>
+                    <p class="font-bold text-base">Wikipedia · Pueblo Purépecha</p>
+                    <p class="mt-1 text-sm text-[#4d5d52]">Historia, lengua y territorio.</p>
+                  </div>
+                </div>
+              </a>
+              <a class="resource-card rounded-xl" href="https://michoacan.gob.mx/" target="_blank" rel="noopener noreferrer">
+                <div class="flex items-start gap-3">
+                  <span class="icon-wrap"><i data-lucide="map" width="18" height="18" aria-hidden="true"></i></span>
+                  <div>
+                    <p class="font-bold text-base">Gobierno de Michoacán</p>
+                    <p class="mt-1 text-sm text-[#4d5d52]">Información territorial y cultural.</p>
+                  </div>
+                </div>
+              </a>
+              <a class="resource-card rounded-xl" href="https://www.gob.mx/" target="_blank" rel="noopener noreferrer">
+                <div class="flex items-start gap-3">
+                  <span class="icon-wrap"><i data-lucide="globe" width="18" height="18" aria-hidden="true"></i></span>
+                  <div>
+                    <p class="font-bold text-base">Gobierno de México</p>
+                    <p class="mt-1 text-sm text-[#4d5d52]">Fuentes institucionales y datos oficiales.</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
         <footer class="mt-8 flex flex-col items-start justify-between gap-4 border-t border-[#173f35]/25 pt-5 md:flex-row md:items-center">
           <p class="max-w-2xl text-lg italic text-[#36584a]">Explorar la cultura Purépecha es reconocer una presencia viva: comunidades que crean, hablan, cultivan y protegen sus territorios.</p>
           <button id="close-detail" type="button" class="close-detail flex items-center gap-2 px-3 py-2">
@@ -442,6 +611,13 @@
     </main>
   </div>
 
+  <div class="lightbox" id="image-lightbox" aria-hidden="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" type="button" aria-label="Cerrar imagen">×</button>
+      <img id="lightbox-image" src="" alt="Imagen ampliada" />
+    </div>
+  </div>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
@@ -450,6 +626,9 @@
       const panels = Array.from(document.querySelectorAll(".detail-panel"));
       const progress = document.getElementById("progress-text");
       const closeButton = document.getElementById("close-detail");
+      const lightbox = document.getElementById("image-lightbox");
+      const lightboxImage = document.getElementById("lightbox-image");
+      const closeLightbox = document.querySelector(".lightbox-close");
 
       const labels = {
         geografia: "01 / 08 · UBICACIÓN GEOGRÁFICA",
@@ -481,6 +660,32 @@
       closeButton.addEventListener("click", () => {
         activatePanel("geografia");
         document.querySelector(".journey-map").scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+
+      const galleryImages = document.querySelectorAll(".gallery-grid img");
+      galleryImages.forEach((img) => {
+        img.addEventListener("click", () => {
+          lightboxImage.src = img.src;
+          lightboxImage.alt = img.alt;
+          lightbox.classList.add("open");
+          lightbox.setAttribute("aria-hidden", "false");
+        });
+      });
+
+      function closeLightboxView() {
+        lightbox.classList.remove("open");
+        lightbox.setAttribute("aria-hidden", "true");
+      }
+
+      closeLightbox.addEventListener("click", closeLightboxView);
+      lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) closeLightboxView();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && lightbox.classList.contains("open")) {
+          closeLightboxView();
+        }
       });
     });
   </script>
