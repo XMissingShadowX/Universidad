@@ -3,25 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menú principal</title>
+  <title>Proyectos generales</title>
   <style>
     :root {
-      --forest: #173f35;
-      --forest-dark: #0f2d26;
-      --terracotta: #b95336;
-      --ochre: #c88a28;
-      --maize: #efbe47;
-      --cream: #f7f0df;
-      --paper: #fffaf0;
-      --shadow: rgba(18, 38, 32, 0.15);
+      --bg: #0b1020;
+      --bg-soft: #111827;
+      --panel: rgba(17, 24, 39, 0.8);
+      --panel-strong: #111827;
+      --card: #f8fafc;
+      --card-2: #eef2ff;
+      --text: #e5eefb;
+      --muted: #9aa9c2;
+      --primary: #7c3aed;
+      --primary-2: #22c55e;
+      --accent: #38bdf8;
+      --warning: #f59e0b;
+      --shadow: rgba(15, 23, 42, 0.35);
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #f6efe3 0%, #f0eadb 100%);
-      color: var(--forest);
+      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.35), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.22), transparent 28%),
+        linear-gradient(135deg, var(--bg) 0%, #0f172a 42%, #111827 100%);
+      color: var(--text);
     }
 
     .container {
@@ -29,195 +39,381 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 32px 20px;
+      padding: 36px 20px;
     }
 
-    .panel {
-      width: min(980px, 100%);
-      background: rgba(255, 250, 240, 0.96);
-      border: 2px solid rgba(23, 63, 53, 0.18);
-      border-radius: 24px;
-      box-shadow: 0 18px 45px var(--shadow);
+    .dashboard {
+      width: min(1100px, 100%);
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 28px;
       overflow: hidden;
+      box-shadow: 0 30px 80px var(--shadow);
+      backdrop-filter: blur(14px);
     }
 
-    .header {
-      background: linear-gradient(135deg, var(--forest) 0%, var(--forest-dark) 100%);
-      color: white;
-      padding: 36px 32px 28px;
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 28px;
+      background: rgba(15, 23, 42, 0.78);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .brand-mark {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      box-shadow: 0 0 16px rgba(124, 58, 237, 0.8);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(124, 58, 237, 0.4);
+      background: rgba(124, 58, 237, 0.1);
+      color: #d9c8ff;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 26px;
+      padding: 34px 28px 24px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .title-block {
+      padding-right: 12px;
     }
 
     .eyebrow {
-      display: inline-block;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      margin: 0 0 10px;
+      color: var(--accent);
       font-size: 12px;
-      color: var(--maize);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
       font-weight: 700;
-      margin-bottom: 12px;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(2.2rem, 4vw, 4rem);
-      line-height: 1;
+      font-size: clamp(2.5rem, 4vw, 4.5rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
     }
 
     .subtitle {
-      margin: 16px 0 0;
+      margin-top: 18px;
+      max-width: 640px;
+      color: var(--muted);
       font-size: 1.08rem;
-      color: #f5eedf;
-      max-width: 680px;
-      line-height: 1.6;
+      line-height: 1.7;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .stat-box {
+      background: rgba(148, 163, 184, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      border-radius: 18px;
+      padding: 14px 16px;
+    }
+
+    .stat-number {
+      font-size: 1.55rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-panel {
+      position: relative;
+      min-height: 220px;
+      border-radius: 26px;
+      padding: 24px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(34, 197, 94, 0.12), rgba(56, 189, 248, 0.12));
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: auto -30px -30px auto;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.45), transparent 60%);
+    }
+
+    .mini-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #d6edff;
+      margin-bottom: 18px;
+    }
+
+    .mini-title {
+      position: relative;
+      font-size: 1.8rem;
+      line-height: 1.1;
+      font-weight: 700;
+      max-width: 220px;
+    }
+
+    .mini-meta {
+      position: relative;
+      display: inline-flex;
+      align-self: flex-start;
+      margin-top: 14px;
+      padding: 8px 12px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: rgba(15, 23, 42, 0.32);
+      border-radius: 999px;
+      color: #d1f5ff;
+      font-weight: 600;
+      font-size: 12px;
     }
 
     .content {
-      padding: 28px 24px 32px;
+      padding: 26px 28px 30px;
     }
 
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 18px;
-      margin-top: 10px;
     }
 
     .page-card {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 180px;
-      padding: 22px 18px;
-      border: 1px solid rgba(23, 63, 53, 0.14);
-      background: linear-gradient(180deg, #fffaf2 0%, #f8f1e3 100%);
-      border-radius: 18px;
+      min-height: 190px;
+      padding: 20px 18px;
+      border-radius: 22px;
       text-decoration: none;
-      color: var(--forest);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 8px 18px rgba(23, 63, 53, 0.05);
+      color: var(--bg-soft);
+      background: linear-gradient(135deg, #f8fafc 0%, #e9f4ff 100%);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
     }
 
     .page-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 22px rgba(23, 63, 53, 0.1);
+      transform: translateY(-4px);
+      box-shadow: 0 22px 30px rgba(15, 23, 42, 0.12);
+      border-color: rgba(124, 58, 237, 0.35);
     }
 
     .page-card.primary {
-      background: linear-gradient(135deg, #1b4f43 0%, #173f35 100%);
+      background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
       color: white;
+      box-shadow: 0 20px 35px rgba(124, 58, 237, 0.25);
     }
 
     .page-card.primary .badge,
     .page-card.primary .meta {
-      color: #f9d76c;
+      color: #e9ddff;
     }
 
     .badge {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--terracotta);
+      font-weight: 700;
+      color: var(--primary);
       margin-bottom: 18px;
     }
 
     .page-card h2 {
       margin: 0 0 10px;
-      font-size: 1.35rem;
+      font-size: 1.38rem;
+      line-height: 1.15;
     }
 
     .page-card p {
       margin: 0;
-      line-height: 1.5;
-      opacity: 0.9;
+      color: inherit;
+      opacity: 0.86;
+      line-height: 1.55;
     }
 
     .meta {
-      margin-top: 22px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      margin-top: 18px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--ochre);
+      font-weight: 700;
+      color: var(--primary);
     }
 
     .cta {
-      display: inline-block;
-      margin-top: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 22px;
       width: 100%;
-      text-align: center;
-      text-decoration: none;
-      background: var(--terracotta);
+      background: linear-gradient(135deg, var(--primary) 0%, #2563eb 100%);
       color: white;
-      padding: 16px 22px;
-      border-radius: 12px;
+      text-decoration: none;
+      border-radius: 16px;
+      padding: 16px 18px;
       font-weight: 700;
-      letter-spacing: 0.03em;
-      transition: opacity 0.2s ease;
+      letter-spacing: 0.04em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 18px 24px rgba(37, 99, 235, 0.25);
     }
 
     .cta:hover {
-      opacity: 0.93;
+      transform: translateY(-2px);
+      box-shadow: 0 22px 30px rgba(37, 99, 235, 0.3);
     }
 
-    @media (max-width: 560px) {
-      .header { padding: 28px 22px 22px; }
-      .content { padding: 20px 18px 24px; }
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .content, .hero, .topbar {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="panel">
-      <header class="header">
-        <div class="eyebrow">Proyecto</div>
-        <h1>Menú principal</h1>
-        <p class="subtitle">
-          Aquí puedes organizar y acceder a las páginas que se irán agregando al proyecto.
-          El contenido principal de la cultura Purépecha ya está disponible en la sección de acceso directo.
-        </p>
+    <div class="dashboard">
+      <div class="topbar">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          Proyectos generales
+        </div>
+        <span class="pill">Portfolio académico</span>
+      </div>
+
+      <header class="hero">
+        <div class="title-block">
+          <p class="eyebrow">Panel principal</p>
+          <h1>Explora tus proyectos</h1>
+          <p class="subtitle">
+            Un menu central para organizar trabajos, temas de investigación y contenidos académicos.
+            Aquí puedes conectar cada proyecto con una vista específica y mantener un acceso rápido al desarrollo completo.
+          </p>
+
+          <div class="stats">
+            <div class="stat-box">
+              <div class="stat-number">04</div>
+              <div class="stat-label">Áreas</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">12+</div>
+              <div class="stat-label">Temas</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">24h</div>
+              <div class="stat-label">Acceso</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div>
+            <div class="mini-label">Proyecto destacado</div>
+            <div class="mini-title">Cultura Purépecha</div>
+          </div>
+          <div class="mini-meta">Ver contenido</div>
+        </div>
       </header>
 
       <main class="content">
         <div class="menu-grid">
-          <a class="page-card" href="#">
+          <a class="page-card" href="desarrollo-sustentable.html">
             <div>
-              <div class="badge">Página 1</div>
-              <h2>Próxima sección</h2>
-              <p>Espacio para una nueva página del proyecto.</p>
+              <div class="badge">Tema 01</div>
+              <h2>Desarrollo sostenible</h2>
+              <p>Ideas, propuestas y análisis sobre cuidado ambiental y comunidad.</p>
             </div>
-            <div class="meta">Agregar</div>
+            <div class="meta">Entrar</div>
           </a>
 
           <a class="page-card" href="#">
             <div>
-              <div class="badge">Página 2</div>
-              <h2>Próxima sección</h2>
-              <p>Se puede añadir información, datos o contenido visual.</p>
+              <div class="badge">Tema 02</div>
+              <h2>Investigación</h2>
+              <p>Espacio para contenidos, datos y trabajo académico de análisis.</p>
             </div>
-            <div class="meta">Agregar</div>
+            <div class="meta">Entrar</div>
           </a>
 
           <a class="page-card" href="#">
             <div>
-              <div class="badge">Página 3</div>
-              <h2>Próxima sección</h2>
-              <p>Usa este espacio para otra parte del proyecto.</p>
+              <div class="badge">Tema 03</div>
+              <h2>Historia</h2>
+              <p>Materiales para temas culturales, sociales y de identidad local.</p>
             </div>
-            <div class="meta">Agregar</div>
+            <div class="meta">Entrar</div>
           </a>
 
           <a class="page-card primary" href="purepechas.html">
             <div>
-              <div class="badge">Contenido</div>
+              <div class="badge">Tema 04</div>
               <h2>Cultura Purépecha</h2>
-              <p>Accede a la página principal del tema desarrollado.</p>
+              <p>Explora el proyecto completo sobre territorio, lengua y tradición.</p>
             </div>
             <div class="meta">Abrir</div>
           </a>
         </div>
 
-        <a class="cta" href="purepechas.html">Ir a purepechas.html</a>
+        <a class="cta" href="desarrollo-sustentable.html">Ir a Desarrollo Sustentable</a>
       </main>
     </div>
   </div>
