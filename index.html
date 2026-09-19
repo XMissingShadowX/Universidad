@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cultura Purépecha · Infografía interactiva</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest: #173f35;
+      --deep-forest: #0d2d25;
+      --terracotta: #b95336;
+      --ochre: #c88a28;
+      --maize: #efbe47;
+      --cream: #f7f0df;
+      --paper: #fffaf0;
+      --ink: #1e342e;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: "Alegreya", serif;
+      color: var(--ink);
+      overflow-x: hidden;
+      background: var(--cream);
+    }
+
+    .app-shell {
+      width: 100%;
+      min-height: 100vh;
+      position: relative;
+      isolation: isolate;
+      background-color: var(--cream);
+      background-image:
+        linear-gradient(rgba(23, 63, 53, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23, 63, 53, .045) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    .app-shell::before, .app-shell::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      border-radius: 999px;
+      filter: blur(2px);
+      opacity: .4;
+      pointer-events: none;
+    }
+    .app-shell::before {
+      width: 280px; height: 280px; top: 16%; left: -160px;
+      background: #e8bd5d;
+    }
+    .app-shell::after {
+      width: 340px; height: 340px; right: -190px; bottom: 8%;
+      background: #d57d52;
+    }
+
+    .hero-photo { filter: saturate(.8) contrast(1.05) brightness(.7); }
+    .top-line {
+      font-family: "Space Mono", monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero-copy { animation: rise .75s ease-out both; }
+    .hero-visual { animation: reveal .85s .12s ease-out both; }
+    .journey-block { animation: rise .75s .22s ease-out both; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes reveal {
+      from { opacity: 0; transform: scale(.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .woven-rule {
+      height: 7px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--terracotta) 0 16px,
+        var(--maize) 16px 29px,
+        var(--forest) 29px 44px,
+        var(--cream) 44px 50px
+      );
+    }
+
+    .journey-map {
+      position: relative;
+      border: 1px solid rgba(23, 63, 53, .18);
+      background: rgba(255, 250, 240, .75);
+      box-shadow: 9px 9px 0 rgba(23, 63, 53, .09);
+    }
+
+    .journey-map::before {
+      content: "";
+      position: absolute;
+      left: 9%; right: 9%; top: 50%;
+      border-top: 1px dashed rgba(23, 63, 53, .42);
+      z-index: 0;
+    }
+
+    .node {
+      position: relative;
+      z-index: 1;
+      min-height: 100px;
+      border: 1px solid rgba(23, 63, 53, .28);
+      background: var(--paper);
+      color: var(--forest);
+      transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
+      text-align: left;
+      cursor: pointer;
+    }
+    .node:hover { transform: translateY(-4px); box-shadow: 4px 5px 0 rgba(23, 63, 53, .17); }
+    .node:focus-visible, .close-detail:focus-visible {
+      outline: 3px solid var(--maize);
+      outline-offset: 3px;
+    }
+    .node.active {
+      background: var(--forest);
+      color: #fffaf0;
+      border-color: var(--forest);
+      box-shadow: 5px 6px 0 var(--terracotta);
+    }
+    .node-number {
+      font-family: "Space Mono", monospace;
+      font-size: 11px;
+      color: var(--terracotta);
+      font-weight: 700;
+    }
+    .node.active .node-number { color: var(--maize); }
+    .node-icon { color: var(--terracotta); }
+    .node.active .node-icon { color: var(--maize); }
+
+    .detail-panel {
+      display: none;
+      border: 1px solid rgba(23, 63, 53, .22);
+      background: var(--paper);
+      box-shadow: 10px 10px 0 rgba(185, 83, 54, .13);
+    }
+    .detail-panel.active {
+      display: grid;
+      animation: panelIn .35s ease-out both;
+    }
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .detail-photo {
+      min-height: 270px;
+      width: 100%;
+      object-fit: cover;
+      filter: saturate(.84) contrast(1.02);
+    }
+    .detail-index {
+      font-family: "Space Mono", monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--terracotta);
+    }
+    .fact-box {
+      border-left: 4px solid var(--ochre);
+      background: #f1e3bd;
+    }
+    .fact-label {
+      font-family: "Space Mono", monospace;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #7d4a17;
+    }
+    .tag-chip {
+      font-family: "Space Mono", monospace;
+      font-size: 10px;
+      letter-spacing: .04em;
+      border: 1px solid rgba(23,63,53,.35);
+      color: var(--forest);
+      background: rgba(239,190,71,.28);
+    }
+
+    .close-detail {
+      border: 1px solid rgba(23, 63, 53, .4);
+      color: var(--forest);
+      background: transparent;
+      font-family: "Space Mono", monospace;
+      font-size: 11px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 767px) {
+      .journey-map::before { display: none; }
+      .node { min-height: 78px; }
+      .detail-photo { min-height: 210px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="w-full px-5 pt-5 md:px-10 md:pt-10">
+      <div class="mx-auto max-w-6xl overflow-hidden border border-[#173f35]/30 bg-[#173f35] shadow-[10px_10px_0_rgba(185,83,54,.23)]">
+        <div class="grid md:grid-cols-[1.08fr_.92fr]">
+          <div class="hero-copy flex flex-col justify-between p-7 md:p-11">
+            <div>
+              <p class="top-line mb-5 text-[13px] font-bold text-[#efbe47]">Michoacán · México</p>
+              <h1 class="max-w-xl text-4xl font-bold leading-[.9] tracking-tight text-[#fffaf0] md:text-5xl">Cultura Purépecha</h1>
+              <p class="mt-6 max-w-lg text-xl leading-snug text-[#f7f0df]">Un recorrido interactivo por un pueblo originario cuya lengua, territorio, economía y formas de cuidado mantienen viva una relación profunda con la tierra y el agua.</p>
+            </div>
+            <div class="mt-8 flex items-center gap-3 text-[#efbe47]">
+              <i data-lucide="compass" width="20" height="20" aria-hidden="true"></i>
+              <p class="top-line text-[11px] font-bold">Elige un nodo para comenzar a explorar</p>
+            </div>
+          </div>
+          <div class="hero-visual relative min-h-[300px] overflow-hidden md:min-h-full">
+            <img loading="lazy" class="hero-photo absolute inset-0 h-full w-full object-cover" src="https://images.pexels.com/photos/12333063/pexels-photo-12333063.jpeg" alt="Persona remando en el lago de Pátzcuaro con la isla de Janitzio al fondo.">
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0d2d25] to-transparent p-6">
+              <p class="top-line text-[10px] font-bold text-[#fffaf0]">Lago de Pátzcuaro · Janitzio</p>
+            </div>
+          </div>
+        </div>
+        <div class="woven-rule"></div>
+      </div>
+    </header>
+
+    <main class="w-full px-5 pb-12 pt-10 md:px-10">
+      <section class="journey-block mx-auto max-w-6xl" aria-labelledby="journey-title">
+        <div class="mb-5 flex flex-col justify-between gap-3 md:flex-row md:items-end">
+          <div>
+            <p class="top-line text-[12px] font-bold text-[#b95336]">Recorrido visual</p>
+            <h2 id="journey-title" class="mt-2 text-2xl font-bold leading-none text-[#173f35]">Ocho hilos para entender un territorio vivo</h2>
+          </div>
+          <p id="progress-text" class="top-line text-xs text-[#5c6752]" aria-live="polite">01 / 08 · UBICACIÓN GEOGRÁFICA</p>
+        </div>
+
+        <nav class="journey-map p-4 md:p-6" aria-label="Temas de la cultura Purépecha">
+          <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+            <button type="button" class="node active p-4" data-panel="geografia" aria-pressed="true">
+              <i data-lucide="map-pin" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">01</span>
+              <span class="mt-1 block text-lg font-bold">Ubicación geográfica</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="lengua" aria-pressed="false">
+              <i data-lucide="languages" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">02</span>
+              <span class="mt-1 block text-lg font-bold">Lengua</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="tradiciones" aria-pressed="false">
+              <i data-lucide="flame" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">03</span>
+              <span class="mt-1 block text-lg font-bold">Costumbres y tradiciones</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="alimentacion" aria-pressed="false">
+              <i data-lucide="shirt" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">04</span>
+              <span class="mt-1 block text-lg font-bold">Alimentación y vestimenta</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="economia" aria-pressed="false">
+              <i data-lucide="hammer" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">05</span>
+              <span class="mt-1 block text-lg font-bold">Actividades económicas</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="recursos" aria-pressed="false">
+              <i data-lucide="trees" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">06</span>
+              <span class="mt-1 block text-lg font-bold">Recursos naturales</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="aprovechamiento" aria-pressed="false">
+              <i data-lucide="droplets" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">07</span>
+              <span class="mt-1 block text-lg font-bold">Aprovechamiento de recursos</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="conservacion" aria-pressed="false">
+              <i data-lucide="leaf" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">08</span>
+              <span class="mt-1 block text-lg font-bold">Prácticas de conservación</span>
+            </button>
+          </div>
+        </nav>
+
+        <section class="mt-8" aria-live="polite">
+
+          <!-- 01 · UBICACIÓN GEOGRÁFICA -->
+          <article id="panel-geografia" class="detail-panel active grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/12315503/pexels-photo-12315503.jpeg" alt="Lago rodeado de bosque en Michoacán.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">01 · EL LUGAR</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Una geografía de montaña, agua y comunidad</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">El pueblo Purépecha habita principalmente el estado de Michoacán, en cuatro grandes regiones: la Meseta Purépecha, de bosques y altiplano; la zona Lacustre, alrededor del lago de Pátzcuaro; la Cañada de los Zacapu; y la Ciénega de Zacapu, con sus manantiales y humedales. Cada paisaje moldea los oficios, los alimentos y las formas de vida de sus comunidades.</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="tag-chip px-2 py-1">Meseta Purépecha</span>
+                <span class="tag-chip px-2 py-1">Zona Lacustre · Pátzcuaro</span>
+                <span class="tag-chip px-2 py-1">Cañada de los Zacapu</span>
+                <span class="tag-chip px-2 py-1">Ciénega de Zacapu</span>
+              </div>
+              <div class="fact-box mt-6 p-4">
+                <p class="fact-label">Mapa mental</p>
+                <p class="mt-1 text-lg font-semibold text-[#173f35]">La vida purépecha enlaza altiplano, cuencas lacustres, bosques y suelos volcánicos.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 02 · LENGUA -->
+          <article id="panel-lengua" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <div class="relative min-h-[270px] overflow-hidden bg-[#b95336] p-8 text-[#fffaf0]">
+              <i data-lucide="languages" class="absolute right-7 top-7 opacity-30" width="105" height="105" aria-hidden="true"></i>
+              <p class="relative z-10 max-w-sm text-3xl font-bold leading-tight">"P'urhépecha" nombra a un pueblo y a una lengua con una identidad singular.</p>
+            </div>
+            <div class="p-7 md:p-10">
+              <p class="detail-index">02 · LA PALABRA</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Purépecha: una lengua aislada</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">El purépecha, también llamado tarasco, es una lengua aislada: no tiene parentesco lingüístico conocido con otras lenguas mesoamericanas ni con ninguna otra familia lingüística documentada. Su continuidad expresa una memoria colectiva transmitida en la familia, la comunidad, las ceremonias y el trabajo cotidiano.</p>
+              <div class="fact-box mt-6 p-4">
+                <p class="fact-label">Identidad viva</p>
+                <p class="mt-1 text-lg font-semibold text-[#173f35]">Hablar la lengua es sostener saberes, afectos y una manera propia de nombrar el mundo.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 03 · COSTUMBRES Y TRADICIONES -->
+          <article id="panel-tradiciones" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/12329760/pexels-photo-12329760.jpeg" alt="Altar de Día de Muertos en Pátzcuaro con flores de cempasúchil y velas.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">03 · EL TIEMPO COMPARTIDO</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Celebrar es reunirse con la memoria</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">La Noche de Muertos en la región lacustre —especialmente en la isla de Janitzio— reúne velas, flores de cempasúchil, alimentos y visitas al panteón para honrar a quienes partieron. El Año Nuevo Purépecha, o K'uínchekua, celebra el inicio de un nuevo ciclo comunitario mediante ceremonias, danzas y el fuego nuevo.</p>
+              <div class="fact-box mt-6 p-4">
+                <p class="fact-label">Dos celebraciones</p>
+                <p class="mt-1 text-lg font-semibold text-[#173f35]">La memoria de los antepasados y el renacer del ciclo agrícola se encuentran en comunidad.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 04 · ALIMENTACIÓN Y VESTIMENTA -->
+          <article id="panel-alimentacion" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/12334113/pexels-photo-12334113.jpeg" alt="Manos preparando tamales tradicionales de maíz.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">04 · MESA Y TELAR</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Maíz que alimenta, tela que cuenta historias</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">La alimentación se basa en la milpa: maíz, frijol, calabaza y chile, complementada con pescado blanco del lago. Entre los platillos destacan las corundas y los uchepos. En la vestimenta, el telar de cintura produce piezas de gran valor cultural: las mujeres visten enagüilla plisada, guanengo (blusa bordada) y faja; los hombres usan camisa y calzón de manta, con el característico sombrero de cuatro pedradas.</p>
+              <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                <div class="fact-box p-4">
+                  <p class="fact-label">En la mesa</p>
+                  <p class="mt-1 font-semibold text-[#173f35]">Maíz · frijol · calabaza · chile · pescado blanco · corundas · uchepos</p>
+                </div>
+                <div class="fact-box p-4">
+                  <p class="fact-label">En el telar</p>
+                  <p class="mt-1 font-semibold text-[#173f35]">Enagüilla plisada · guanengo bordado · faja · calzón de manta · sombrero de 4 pedradas</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 05 · ACTIVIDADES ECONÓMICAS -->
+          <article id="panel-economia" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/8066105/pexels-photo-8066105.jpeg" alt="Artesana pintando una pieza de cerámica tradicional mexicana.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">05 · MANOS QUE TRANSFORMAN</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Oficios que hacen comunidad</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">La agricultura de temporal y la pesca artesanal sostienen buena parte de la vida local. A ellas se suman oficios especializados como la alfarería —destacan la cerámica vidriada de Santa Clara del Cobre y las figuras de barro de Ocumicho—, además de la textilería y la carpintería. Cada pieza artesanal concentra conocimiento técnico y sensibilidad artística transmitidos entre generaciones.</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="tag-chip px-2 py-1">Agricultura de temporal</span>
+                <span class="tag-chip px-2 py-1">Pesca artesanal</span>
+                <span class="tag-chip px-2 py-1">Alfarería · Santa Clara del Cobre</span>
+                <span class="tag-chip px-2 py-1">Ocumicho</span>
+                <span class="tag-chip px-2 py-1">Textilería</span>
+                <span class="tag-chip px-2 py-1">Carpintería</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 06 · RECURSOS NATURALES -->
+          <article id="panel-recursos" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/12910529/pexels-photo-12910529.jpeg" alt="Bosque templado y brumoso de pinos.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">06 · LA RED DE LA VIDA</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Bosques, lagos y suelos que sostienen la vida</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">El territorio reúne bosques templados de pinos y encinos, cuerpos de agua dulce como lagos y manantiales, y suelos volcánicos fértiles. Esta diversidad nutre una rica flora y fauna local, entre la que destaca la mariposa monarca, que hiberna cada invierno en los bosques de la región y es símbolo de la riqueza natural michoacana.</p>
+              <div class="fact-box mt-6 p-4">
+                <p class="fact-label">Biodiversidad</p>
+                <p class="mt-1 text-lg font-semibold text-[#173f35]">Pinos, encinos, manantiales, suelos volcánicos y especies emblemáticas como la mariposa monarca.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 07 · APROVECHAMIENTO DE RECURSOS -->
+          <article id="panel-aprovechamiento" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/16578774/pexels-photo-16578774.jpeg" alt="Pescador lanzando una red tradicional en el lago de Janitzio.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">07 · USO CON MEDIDA</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Tomar de la tierra sin agotarla</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">El suelo se aprovecha de forma sostenible a través de la milpa, que combina cultivos y respeta los ciclos naturales. El agua lacustre sostiene la pesca artesanal desde generaciones. Del bosque se obtiene, de manera responsable, madera y plantas medicinales, cuidando que su extracción no comprometa la regeneración del monte.</p>
+              <div class="mt-6 grid gap-3 sm:grid-cols-3">
+                <div class="fact-box p-4">
+                  <p class="fact-label">Suelo</p>
+                  <p class="mt-1 font-semibold text-[#173f35]">Milpa y cultivo sostenible</p>
+                </div>
+                <div class="fact-box p-4">
+                  <p class="fact-label">Agua</p>
+                  <p class="mt-1 font-semibold text-[#173f35]">Pesca lacustre tradicional</p>
+                </div>
+                <div class="fact-box p-4">
+                  <p class="fact-label">Bosque</p>
+                  <p class="mt-1 font-semibold text-[#173f35]">Recolección responsable de madera y plantas medicinales</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 08 · PRÁCTICAS DE CONSERVACIÓN -->
+          <article id="panel-conservacion" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/12333063/pexels-photo-12333063.jpeg" alt="Persona remando en el lago de Pátzcuaro con la isla de Janitzio al fondo.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">08 · RECIPROCIDAD</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Cuidar la naturaleza es una práctica cultural</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">La cosmovisión Purépecha expresa un respeto profundo por la naturaleza. El manejo comunitario de los bosques, las decisiones colectivas sobre el territorio y los rituales de agradecimiento por las cosechas y el agua son prácticas que reconocen la interdependencia entre personas, animales, montes, lagos y ciclos del tiempo.</p>
+              <div class="fact-box mt-6 p-4">
+                <p class="fact-label">Una enseñanza central</p>
+                <p class="mt-1 text-lg font-semibold text-[#173f35]">La conservación no es una tarea aislada: es una relación de reciprocidad con el territorio.</p>
+              </div>
+            </div>
+          </article>
+
+        </section>
+
+        <footer class="mt-8 flex flex-col items-start justify-between gap-4 border-t border-[#173f35]/25 pt-5 md:flex-row md:items-center">
+          <p class="max-w-2xl text-lg italic text-[#36584a]">Explorar la cultura Purépecha es reconocer una presencia viva: comunidades que crean, hablan, cultivan y protegen sus territorios.</p>
+          <button id="close-detail" type="button" class="close-detail flex items-center gap-2 px-3 py-2">
+            <i data-lucide="rotate-ccw" width="15" height="15" aria-hidden="true"></i>
+            <span>Volver al inicio</span>
+          </button>
+        </footer>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+
+      const nodes = Array.from(document.querySelectorAll(".node"));
+      const panels = Array.from(document.querySelectorAll(".detail-panel"));
+      const progress = document.getElementById("progress-text");
+      const closeButton = document.getElementById("close-detail");
+
+      const labels = {
+        geografia: "01 / 08 · UBICACIÓN GEOGRÁFICA",
+        lengua: "02 / 08 · LENGUA",
+        tradiciones: "03 / 08 · COSTUMBRES Y TRADICIONES",
+        alimentacion: "04 / 08 · ALIMENTACIÓN Y VESTIMENTA",
+        economia: "05 / 08 · ACTIVIDADES ECONÓMICAS",
+        recursos: "06 / 08 · RECURSOS NATURALES",
+        aprovechamiento: "07 / 08 · APROVECHAMIENTO DE RECURSOS",
+        conservacion: "08 / 08 · PRÁCTICAS DE CONSERVACIÓN"
+      };
+
+      function activatePanel(panelName) {
+        nodes.forEach((node) => {
+          const isActive = node.dataset.panel === panelName;
+          node.classList.toggle("active", isActive);
+          node.setAttribute("aria-pressed", String(isActive));
+        });
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", panel.id === "panel-" + panelName);
+        });
+        progress.textContent = labels[panelName];
+      }
+
+      nodes.forEach((node) => {
+        node.addEventListener("click", () => activatePanel(node.dataset.panel));
+      });
+
+      closeButton.addEventListener("click", () => {
+        activatePanel("geografia");
+        document.querySelector(".journey-map").scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+  </script>
+</body>
+</html>
