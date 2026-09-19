@@ -6,19 +6,18 @@
   <title>Proyectos generales</title>
   <style>
     :root {
-      --bg: #0b1020;
-      --bg-soft: #111827;
-      --panel: rgba(17, 24, 39, 0.8);
-      --panel-strong: #111827;
-      --card: #f8fafc;
-      --card-2: #eef2ff;
-      --text: #e5eefb;
-      --muted: #9aa9c2;
-      --primary: #7c3aed;
-      --primary-2: #22c55e;
-      --accent: #38bdf8;
-      --warning: #f59e0b;
-      --shadow: rgba(15, 23, 42, 0.35);
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --panel-soft: #eef4ff;
+      --ink: #1f2937;
+      --muted: #5f6f86;
+      --line: #dfe8f5;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-soft: #eaf2ff;
+      --green: #16a34a;
+      --green-soft: #ecfdf5;
+      --shadow: rgba(15, 23, 42, 0.08);
     }
 
     * { box-sizing: border-box; }
@@ -27,11 +26,8 @@
       margin: 0;
       min-height: 100vh;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(124, 58, 237, 0.35), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.22), transparent 28%),
-        linear-gradient(135deg, var(--bg) 0%, #0f172a 42%, #111827 100%);
-      color: var(--text);
+      background: linear-gradient(180deg, #f7faff 0%, #edf3ff 100%);
+      color: var(--ink);
     }
 
     .container {
@@ -44,12 +40,11 @@
 
     .dashboard {
       width: min(1100px, 100%);
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
       border-radius: 28px;
       overflow: hidden;
-      box-shadow: 0 30px 80px var(--shadow);
-      backdrop-filter: blur(14px);
+      box-shadow: 0 24px 60px var(--shadow);
     }
 
     .topbar {
@@ -58,8 +53,8 @@
       justify-content: space-between;
       gap: 20px;
       padding: 20px 28px;
-      background: rgba(15, 23, 42, 0.78);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
     }
 
     .brand {
@@ -74,19 +69,19 @@
     }
 
     .brand-mark {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-      box-shadow: 0 0 16px rgba(124, 58, 237, 0.8);
+      background: linear-gradient(135deg, var(--primary) 0%, #60a5fa 100%);
+      box-shadow: 0 0 18px rgba(37, 99, 235, 0.32);
     }
 
     .pill {
       display: inline-flex;
       align-items: center;
-      border: 1px solid rgba(124, 58, 237, 0.4);
-      background: rgba(124, 58, 237, 0.1);
-      color: #d9c8ff;
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      background: var(--primary-soft);
+      color: var(--primary-dark);
       padding: 8px 12px;
       border-radius: 999px;
       font-size: 11px;
@@ -100,7 +95,8 @@
       grid-template-columns: 1.4fr 0.8fr;
       gap: 26px;
       padding: 34px 28px 24px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
     }
 
     .title-block {
@@ -109,7 +105,7 @@
 
     .eyebrow {
       margin: 0 0 10px;
-      color: var(--accent);
+      color: var(--primary-dark);
       font-size: 12px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -121,6 +117,7 @@
       font-size: clamp(2.5rem, 4vw, 4.5rem);
       line-height: 0.96;
       letter-spacing: -0.06em;
+      color: var(--ink);
     }
 
     .subtitle {
@@ -139,8 +136,8 @@
     }
 
     .stat-box {
-      background: rgba(148, 163, 184, 0.06);
-      border: 1px solid rgba(148, 163, 184, 0.12);
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
       border-radius: 18px;
       padding: 14px 16px;
     }
@@ -149,6 +146,7 @@
       font-size: 1.55rem;
       font-weight: 800;
       margin-bottom: 6px;
+      color: var(--primary-dark);
     }
 
     .stat-label {
@@ -163,8 +161,8 @@
       min-height: 220px;
       border-radius: 26px;
       padding: 24px;
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(34, 197, 94, 0.12), rgba(56, 189, 248, 0.12));
-      border: 1px solid rgba(148, 163, 184, 0.14);
+      background: linear-gradient(135deg, var(--primary-soft) 0%, #eefdf5 100%);
+      border: 1px solid var(--line);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -178,15 +176,16 @@
       width: 160px;
       height: 160px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.45), transparent 60%);
+      background: rgba(37, 99, 235, 0.08);
     }
 
     .mini-label {
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #d6edff;
+      color: var(--primary-dark);
       margin-bottom: 18px;
+      font-weight: 700;
     }
 
     .mini-title {
@@ -195,6 +194,7 @@
       line-height: 1.1;
       font-weight: 700;
       max-width: 220px;
+      color: var(--ink);
     }
 
     .mini-meta {
@@ -203,10 +203,10 @@
       align-self: flex-start;
       margin-top: 14px;
       padding: 8px 12px;
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      background: rgba(15, 23, 42, 0.32);
+      border: 1px solid rgba(37, 99, 235, 0.18);
+      background: rgba(255, 255, 255, 0.7);
       border-radius: 999px;
-      color: #d1f5ff;
+      color: var(--primary-dark);
       font-weight: 600;
       font-size: 12px;
     }
@@ -229,28 +229,28 @@
       padding: 20px 18px;
       border-radius: 22px;
       text-decoration: none;
-      color: var(--bg-soft);
-      background: linear-gradient(135deg, #f8fafc 0%, #e9f4ff 100%);
-      border: 1px solid rgba(148, 163, 184, 0.18);
+      color: var(--ink);
+      background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+      border: 1px solid var(--line);
       transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.04);
     }
 
     .page-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 22px 30px rgba(15, 23, 42, 0.12);
-      border-color: rgba(124, 58, 237, 0.35);
+      box-shadow: 0 18px 28px rgba(15, 23, 42, 0.08);
+      border-color: rgba(37, 99, 235, 0.3);
     }
 
     .page-card.primary {
-      background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       color: white;
-      box-shadow: 0 20px 35px rgba(124, 58, 237, 0.25);
+      box-shadow: 0 18px 28px rgba(37, 99, 235, 0.2);
     }
 
     .page-card.primary .badge,
     .page-card.primary .meta {
-      color: #e9ddff;
+      color: #e0ebff;
     }
 
     .badge {
@@ -258,6 +258,167 @@
       font-size: 11px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
+      color: var(--primary-dark);
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .page-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.38rem;
+      line-height: 1.15;
+    }
+
+    .page-card p {
+      margin: 0;
+      color: inherit;
+      opacity: 0.82;
+      line-height: 1.55;
+    }
+
+    .meta {
+      margin-top: 18px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 22px;
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 16px;
+      padding: 16px 18px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 18px 24px rgba(37, 99, 235, 0.2);
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 30px rgba(37, 99, 235, 0.28);
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .content, .hero, .topbar {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="dashboard">
+      <div class="topbar">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          Proyectos generales
+        </div>
+        <span class="pill">Menu principal</span>
+      </div>
+
+      <header class="hero">
+        <div class="title-block">
+          <p class="eyebrow">Panel principal</p>
+          <h1>Todos tus proyectos</h1>
+          <p class="subtitle">
+            Un menú claro para organizar tus actividades, temas y trabajos de la universidad en un solo lugar.
+            Aquí puedes acceder rápidamente a cada materia y a su contenido específico.
+          </p>
+
+          <div class="stats">
+            <div class="stat-box">
+              <div class="stat-number">04</div>
+              <div class="stat-label">Materias</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">08</div>
+              <div class="stat-label">Trabajos</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">1</div>
+              <div class="stat-label">Portal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div>
+            <div class="mini-label">Proyecto destacado</div>
+            <div class="mini-title">Desarrollo Sustentable</div>
+          </div>
+          <div class="mini-meta">Ver materia</div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="menu-grid">
+          <a class="page-card" href="desarrollo-sustentable.html">
+            <div>
+              <div class="badge">Tema 01</div>
+              <h2>Desarrollo sostenible</h2>
+              <p>Ideas, propuestas y análisis sobre cuidado ambiental y comunidad.</p>
+            </div>
+            <div class="meta">Entrar</div>
+          </a>
+
+          <a class="page-card" href="#">
+            <div>
+              <div class="badge">Tema 02</div>
+              <h2>Investigación</h2>
+              <p>Espacio para contenidos, datos y trabajo académico de análisis.</p>
+            </div>
+            <div class="meta">Entrar</div>
+          </a>
+
+          <a class="page-card" href="#">
+            <div>
+              <div class="badge">Tema 03</div>
+              <h2>Historia</h2>
+              <p>Materiales para temas culturales, sociales y de identidad local.</p>
+            </div>
+            <div class="meta">Entrar</div>
+          </a>
+
+          <a class="page-card primary" href="purepechas.html">
+            <div>
+              <div class="badge">Tema 04</div>
+              <h2>Cultura Purépecha</h2>
+              <p>Explora el proyecto completo sobre territorio, lengua y tradición.</p>
+            </div>
+            <div class="meta">Abrir</div>
+          </a>
+        </div>
+
+        <a class="cta" href="desarrollo-sustentable.html">Ir a Desarrollo Sustentable</a>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 18px;
