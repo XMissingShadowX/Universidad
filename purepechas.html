@@ -157,6 +157,7 @@
     .detail-photo {
       min-height: 270px;
       width: 100%;
+      height: 100%;
       object-fit: cover;
       filter: saturate(.84) contrast(1.02);
     }
@@ -288,6 +289,49 @@
       text-transform: uppercase;
     }
 
+    /* Progreso y navegación */
+    .progress-bar { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; margin-top: 10px; }
+    .progress-bar button { height: 8px; border: 0; padding: 0; background: rgba(23,63,53,.2); cursor: pointer; transition: background .2s; }
+    .progress-bar button.done { background: var(--ochre); }
+    .progress-bar button.current { background: var(--terracotta); }
+    .panel-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; padding-top: 16px; border-top: 1px dashed rgba(23,63,53,.3); }
+    .panel-nav button, .ui-btn {
+      font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+      border: 1px solid rgba(23,63,53,.4); color: var(--forest); background: transparent; padding: 8px 12px; cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .panel-nav button:hover:not(:disabled), .ui-btn:hover { background: var(--forest); color: var(--paper); }
+    .panel-nav button:disabled { opacity: .35; cursor: default; }
+    .panel-nav button:focus-visible, .ui-btn:focus-visible, .flip:focus-visible, .choice:focus-visible, .acc-head:focus-visible {
+      outline: 3px solid var(--maize); outline-offset: 2px;
+    }
+
+    /* Bloques interactivos */
+    .extra-title { font-family: "Space Mono", monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); }
+    .ui-btn.on { background: var(--forest); color: var(--paper); }
+    .info-card { border-left: 4px solid var(--terracotta); background: rgba(255,255,255,.75); border-top: 1px solid rgba(23,63,53,.12); border-right: 1px solid rgba(23,63,53,.12); border-bottom: 1px solid rgba(23,63,53,.12); }
+    .flip { perspective: 700px; height: 110px; background: none; border: 0; padding: 0; cursor: pointer; }
+    .flip-inner { position: relative; width: 100%; height: 100%; transition: transform .5s; transform-style: preserve-3d; }
+    .flip.flipped .flip-inner { transform: rotateY(180deg); }
+    .flip-face { position: absolute; inset: 0; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; text-align: center; border: 1px solid rgba(23,63,53,.3); }
+    .flip-front { background: var(--forest); color: var(--paper); }
+    .flip-back { background: #f1e3bd; color: var(--forest); transform: rotateY(180deg); }
+    .acc-item { border: 1px solid rgba(23,63,53,.22); background: rgba(255,255,255,.6); }
+    .acc-head { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: none; border: 0; cursor: pointer; font-weight: 700; font-size: 18px; color: var(--forest); text-align: left; }
+    .acc-body { display: none; padding: 0 14px 14px; }
+    .acc-item.open .acc-body { display: block; }
+    .acc-item.open .acc-chev { transform: rotate(180deg); }
+    .acc-chev { transition: transform .2s; }
+    .choice { display: block; width: 100%; text-align: left; margin-top: 8px; padding: 10px 12px; border: 1px solid rgba(23,63,53,.3); background: var(--paper); cursor: pointer; font-size: 17px; color: var(--forest); }
+    .choice:hover:not(:disabled) { background: #f1e3bd; }
+    .choice.ok { background: #cfe6c8; border-color: #3f7a3a; }
+    .choice.bad { background: #f3cdc2; border-color: var(--terracotta); }
+    .facade { position: relative; width: 100%; aspect-ratio: 16/9; border: 0; padding: 0; cursor: pointer; background: var(--deep-forest) center/cover; color: #fffaf0; }
+    .facade span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: "Space Mono", monospace; font-size: 12px; text-transform: uppercase; background: rgba(13,45,37,.45); }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+
     @media (max-width: 767px) {
       .journey-map::before { display: none; }
       .node { min-height: 78px; }
@@ -331,6 +375,7 @@
           </div>
           <p id="progress-text" class="top-line text-xs text-[#5c6752]" aria-live="polite">01 / 08 · UBICACIÓN GEOGRÁFICA</p>
         </div>
+        <div id="progress-bar" class="progress-bar mb-5" aria-hidden="true"></div>
 
         <nav class="journey-map p-4 md:p-6" aria-label="Temas de la cultura Purépecha">
           <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -539,27 +584,7 @@
 
         </section>
 
-        <section class="mt-12 grid gap-6 lg:grid-cols-[1.15fr_.85fr]">
-          <div class="media-card overflow-hidden rounded-2xl p-4 md:p-5">
-            <div class="mb-4 flex items-center justify-between gap-3">
-              <div>
-                <p class="top-line text-[10px] font-bold text-[#b95336]">Video</p>
-                <h3 class="mt-1 text-2xl font-bold text-[#173f35]">Documental breve</h3>
-              </div>
-              <i data-lucide="video" class="text-[#b95336]" width="24" height="24" aria-hidden="true"></i>
-            </div>
-            <div class="overflow-hidden rounded-xl border border-[#173f35]/20">
-              <iframe
-                class="aspect-video w-full"
-                src="https://www.youtube.com/embed/zc4nrlDBm4I?si=PY3W53SV2dLPSjQx"
-                title="Video relacionado con la cultura Purépecha"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen>
-              </iframe>
-            </div>
-          </div>
-
+        <section class="mt-12">
           <div class="media-card rounded-2xl p-4 md:p-5">
             <div class="mb-4 flex items-center justify-between gap-3">
               <div>
@@ -568,7 +593,7 @@
               </div>
               <i data-lucide="link-2" class="text-[#b95336]" width="22" height="22" aria-hidden="true"></i>
             </div>
-            <div class="space-y-3">
+            <div class="grid gap-3 md:grid-cols-3">
               <a class="resource-card rounded-xl" href="https://es.wikipedia.org/wiki/Pueblo_pur%C3%A9pecha" target="_blank" rel="noopener noreferrer">
                 <div class="flex items-start gap-3">
                   <span class="icon-wrap"><i data-lucide="book-open" width="18" height="18" aria-hidden="true"></i></span>
@@ -641,7 +666,20 @@
         conservacion: "08 / 08 · PRÁCTICAS DE CONSERVACIÓN"
       };
 
-      function activatePanel(panelName) {
+      const order = Object.keys(labels);
+      const bar = document.getElementById("progress-bar");
+      const barSegs = order.map((name, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.tabIndex = -1;
+        b.addEventListener("click", () => activatePanel(name, true));
+        bar.appendChild(b);
+        return b;
+      });
+
+      function activatePanel(panelName, scroll) {
+        if (!labels[panelName]) panelName = order[0];
+        const idx = order.indexOf(panelName);
         nodes.forEach((node) => {
           const isActive = node.dataset.panel === panelName;
           node.classList.toggle("active", isActive);
@@ -650,12 +688,300 @@
         panels.forEach((panel) => {
           panel.classList.toggle("active", panel.id === "panel-" + panelName);
         });
+        barSegs.forEach((b, i) => {
+          b.classList.toggle("current", i === idx);
+          b.classList.toggle("done", i < idx);
+        });
         progress.textContent = labels[panelName];
+        if (location.hash !== "#" + panelName) history.replaceState(null, "", "#" + panelName);
+        if (scroll) {
+          document.getElementById("panel-" + panelName).scrollIntoView({ behavior: "smooth", block: "start" });
+        }
       }
 
       nodes.forEach((node) => {
-        node.addEventListener("click", () => activatePanel(node.dataset.panel));
+        node.addEventListener("click", () => activatePanel(node.dataset.panel, window.innerWidth < 768));
       });
+
+      const current = () => order.find((n) => document.getElementById("panel-" + n).classList.contains("active"));
+      const step = (d) => {
+        const next = order[order.indexOf(current()) + d];
+        if (next) activatePanel(next, true);
+      };
+
+      // ---------- Helpers de UI ----------
+      const el = (html) => { const t = document.createElement("template"); t.innerHTML = html.trim(); return t.content.firstElementChild; };
+      const link = (href, title, desc, icon) => `
+        <a class="resource-card rounded-xl" href="${href}" target="_blank" rel="noopener noreferrer">
+          <div class="flex items-start gap-3">
+            <span class="icon-wrap"><i data-lucide="${icon}" width="18" height="18" aria-hidden="true"></i></span>
+            <div><p class="font-bold text-base">${title}</p><p class="mt-1 text-sm text-[#4d5d52]">${desc}</p></div>
+          </div>
+        </a>`;
+      const yt = (q) => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+      const wiki = (t) => "https://es.wikipedia.org/wiki/" + encodeURIComponent(t);
+      const osm = (q) => "https://www.openstreetmap.org/search?query=" + encodeURIComponent(q);
+
+      // Botones que muestran una tarjeta de información (regiones, oficios, recursos)
+      function picker(items, label) {
+        const root = el(`<div class="mt-8"><p class="extra-title">${label}</p>
+          <div class="mt-3 flex flex-wrap gap-2" role="group"></div>
+          <div class="info-card mt-3 p-4" aria-live="polite"></div></div>`);
+        const group = root.querySelector("[role=group]");
+        const card = root.querySelector(".info-card");
+        const show = (i) => {
+          [...group.children].forEach((b, j) => { b.classList.toggle("on", i === j); b.setAttribute("aria-pressed", String(i === j)); });
+          const it = items[i];
+          card.innerHTML = `<p class="font-bold text-xl text-[#173f35]">${it.t}</p>
+            <p class="mt-1 text-lg leading-snug text-[#324a40]">${it.d}</p>
+            ${it.href ? `<a class="mt-3 inline-flex items-center gap-2 text-sm font-bold text-[#b95336] underline" href="${it.href}" target="_blank" rel="noopener noreferrer">${it.cta}<i data-lucide="external-link" width="14" height="14" aria-hidden="true"></i></a>` : ""}`;
+          lucide.createIcons();
+        };
+        items.forEach((it, i) => {
+          const b = el(`<button type="button" class="ui-btn" aria-pressed="false">${it.t}</button>`);
+          b.addEventListener("click", () => show(i));
+          group.appendChild(b);
+        });
+        show(0);
+        return root;
+      }
+
+      function accordion(items, label) {
+        const root = el(`<div class="mt-8"><p class="extra-title">${label}</p><div class="mt-3 space-y-2"></div></div>`);
+        items.forEach((it, i) => {
+          const item = el(`<div class="acc-item"><button type="button" class="acc-head" aria-expanded="false">
+            <span>${it.t}</span><i class="acc-chev" data-lucide="chevron-down" width="18" height="18" aria-hidden="true"></i></button>
+            <div class="acc-body text-lg leading-snug text-[#324a40]">${it.d}</div></div>`);
+          const head = item.querySelector(".acc-head");
+          head.addEventListener("click", () => {
+            const open = item.classList.toggle("open");
+            head.setAttribute("aria-expanded", String(open));
+          });
+          root.lastElementChild.appendChild(item);
+        });
+        return root;
+      }
+
+      function flipCards(items, label) {
+        const root = el(`<div class="mt-8"><p class="extra-title">${label}</p>
+          <div class="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3"></div></div>`);
+        items.forEach((it) => {
+          const c = el(`<button type="button" class="flip" aria-pressed="false" aria-label="${it.front}: toca para ver el significado"><div class="flip-inner">
+            <div class="flip-face flip-front"><p class="text-2xl font-bold">${it.front}</p><p class="top-line text-[9px] text-[#efbe47]">Toca para voltear</p></div>
+            <div class="flip-face flip-back"><p class="text-lg font-semibold leading-tight">${it.back}</p></div></div></button>`);
+          c.addEventListener("click", () => { const f = c.classList.toggle("flipped"); c.setAttribute("aria-pressed", String(f)); });
+          root.lastElementChild.appendChild(c);
+        });
+        return root;
+      }
+
+      function quiz(questions, label) {
+        const root = el(`<div class="mt-8"><p class="extra-title">${label}</p><div class="quiz-body mt-3"></div></div>`);
+        const body = root.querySelector(".quiz-body");
+        let i = 0, score = 0;
+        function render() {
+          if (i >= questions.length) {
+            body.innerHTML = `<div class="fact-box p-4"><p class="fact-label">Resultado</p>
+              <p class="mt-1 text-xl font-bold text-[#173f35]">${score} de ${questions.length} correctas</p>
+              <button type="button" class="ui-btn mt-3">Intentar de nuevo</button></div>`;
+            body.querySelector("button").addEventListener("click", () => { i = 0; score = 0; render(); });
+            return;
+          }
+          const q = questions[i];
+          body.innerHTML = `<p class="top-line text-[10px] text-[#5c6752]">Pregunta ${i + 1} / ${questions.length}</p>
+            <p class="mt-1 text-xl font-bold text-[#173f35]">${q.q}</p><div class="opts"></div><p class="fb mt-3 text-lg text-[#324a40]" aria-live="polite"></p>`;
+          const opts = body.querySelector(".opts");
+          q.o.forEach((text, k) => {
+            const b = el(`<button type="button" class="choice">${text}</button>`);
+            b.addEventListener("click", () => {
+              const right = k === q.a;
+              if (right) score++;
+              [...opts.children].forEach((x, j) => { x.disabled = true; x.classList.toggle("ok", j === q.a); if (j === k && !right) x.classList.add("bad"); });
+              body.querySelector(".fb").textContent = (right ? "¡Correcto! " : "No exactamente. ") + q.f;
+              const n = el(`<button type="button" class="ui-btn mt-3">${i + 1 === questions.length ? "Ver resultado" : "Siguiente"}</button>`);
+              n.addEventListener("click", () => { i++; render(); });
+              body.appendChild(n);
+              n.focus();
+            });
+            opts.appendChild(b);
+          });
+        }
+        render();
+        return root;
+      }
+
+      function tabs(items, label) {
+        const root = el(`<div class="mt-8"><p class="extra-title">${label}</p>
+          <div class="mt-3 flex flex-wrap gap-2" role="tablist"></div><div class="info-card mt-3 p-4" role="tabpanel"></div></div>`);
+        const list = root.querySelector("[role=tablist]");
+        const pane = root.querySelector("[role=tabpanel]");
+        const show = (i) => {
+          [...list.children].forEach((b, j) => { b.classList.toggle("on", i === j); b.setAttribute("aria-selected", String(i === j)); });
+          pane.innerHTML = items[i].d;
+        };
+        items.forEach((it, i) => {
+          const b = el(`<button type="button" class="ui-btn" role="tab" aria-selected="false">${it.t}</button>`);
+          b.addEventListener("click", () => show(i));
+          list.appendChild(b);
+        });
+        show(0);
+        return root;
+      }
+
+      // Reproductor que carga el iframe solo al hacer clic. v = {id, t, note, vertical}
+      function videos(list, label) {
+        const root = el(`<div class="mt-8"><p class="extra-title">${label}</p><div class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div></div>`);
+        list.forEach((v) => {
+          const card = el(`<figure class="${v.vertical ? "mx-auto w-full max-w-[240px]" : ""}">
+            <button type="button" class="facade" style="background-image:url(https://i.ytimg.com/vi/${v.id}/hqdefault.jpg);${v.vertical ? "aspect-ratio:9/16" : ""}" aria-label="Reproducir: ${v.t}">
+              <span><i data-lucide="play" width="18" height="18" aria-hidden="true"></i>Reproducir${v.min ? " · " + v.min : ""}</span>
+            </button>
+            <figcaption class="mt-2 text-base font-semibold leading-tight text-[#173f35]">${v.t}${v.note ? `<span class="block text-sm font-normal text-[#4d5d52]">${v.note}</span>` : ""}</figcaption></figure>`);
+          card.querySelector("button").addEventListener("click", (e) => {
+            const f = el(`<iframe class="w-full" style="aspect-ratio:${v.vertical ? "9/16" : "16/9"}" src="https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0"
+              title="${v.t}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`);
+            e.currentTarget.replaceWith(f);
+          });
+          root.lastElementChild.appendChild(card);
+        });
+        return root;
+      }
+
+      const links = (arr) => el(`<div class="mt-8"><p class="extra-title">Para profundizar</p>
+        <div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">${arr.join("")}</div></div>`);
+
+      // ---------- Contenido interactivo por panel ----------
+      const extras = {
+        geografia: [
+          picker([
+            { t: "Meseta Purépecha", d: "Altiplano volcánico de bosques de pino y encino, con comunidades como Cherán, Paracho y Nurío.", href: osm("Meseta Purépecha, Michoacán"), cta: "Ver en el mapa" },
+            { t: "Zona Lacustre", d: "Alrededor del lago de Pátzcuaro: Janitzio, Tzintzuntzan y Erongarícuaro. Pesca, artesanía y Noche de Muertos.", href: osm("Lago de Pátzcuaro"), cta: "Ver en el mapa" },
+            { t: "Cañada de los Once Pueblos", d: "Valle en la región de Chilchota, con comunidades agrícolas de tradición purépecha.", href: osm("Chilchota, Michoacán"), cta: "Ver en el mapa" },
+            { t: "Ciénega de Zacapu", d: "Región de manantiales y humedales alrededor de Zacapu, con gran importancia arqueológica y ecológica.", href: osm("Zacapu, Michoacán"), cta: "Ver en el mapa" }
+          ], "Explora las regiones"),
+          videos([
+            { id: "1ExhFOc5iDU", t: "Michoacán, vida diaria de la Cultura Purépecha", note: "En el museo", min: "6 min" },
+            { id: "sX6TAxy73co", t: "¿Qué fue el Imperio Purépecha?", note: "Resumen animado", min: "9 min" }
+          ], "Videos"),
+          links([
+            link(wiki("Imperio_tarasco"), "Wikipedia · Imperio purépecha", "Historia del territorio y su capital.", "landmark"),
+            link(osm("Tzintzuntzan, Michoacán"), "Tzintzuntzan en el mapa", "Antiguo centro ceremonial y político.", "map-pin")
+          ])
+        ],
+        lengua: [
+          flipCards([
+            { front: "K'uínchekua", back: "Fiesta, celebración" },
+            { front: "Kurhunda", back: "Corunda: tamal triangular de maíz" },
+            { front: "Uchepo", back: "Tamal de maíz tierno (elote)" }
+          ], "Mini glosario"),
+          links([
+            link(wiki("Idioma_pur%C3%A9pecha"), "Wikipedia · Lengua purépecha", "Características y variantes.", "book-open"),
+            link(yt("aprende purépecha palabras básicas"), "Videos para aprender", "Búsqueda en YouTube.", "play-circle")
+          ])
+        ],
+        tradiciones: [
+          accordion([
+            { t: "Noche de Muertos", d: "Se celebra la noche del 1 al 2 de noviembre. En Janitzio y otras comunidades del lago de Pátzcuaro las familias velan en el panteón con velas, cempasúchil y ofrendas de comida." },
+            { t: "Año Nuevo Purépecha · K'uínchekua", d: "Se celebra el 1 y 2 de febrero. Se enciende el fuego nuevo y se realizan danzas y ceremonias que marcan el inicio de un nuevo ciclo comunitario." }
+          ], "Dos celebraciones"),
+          videos([
+            { id: "KnBOiFBpWEU", t: "Tradiciones de la meseta purépecha", min: "1 min", vertical: true },
+            { id: "-kRcOulskWE", t: "Día de Muertos en Janitzio", note: "Noche de Muertos" },
+            { id: "XY4jLKHIi2o", t: "La caminata del fuego", note: "Año Nuevo Purépecha" }
+          ], "Videos"),
+          links([
+            link(yt("Noche de Muertos Janitzio documental"), "Videos · Noche de Muertos", "Búsqueda en YouTube.", "play-circle"),
+            link(yt("Año Nuevo Purépecha fuego nuevo Uruapan"), "Videos · Año Nuevo Purépecha", "Búsqueda en YouTube.", "flame")
+          ])
+        ],
+        alimentacion: [
+          tabs([
+            { t: "En la mesa", d: `<p class="text-lg leading-snug text-[#324a40]"><b>Corunda:</b> tamal triangular envuelto en hoja de milpa. <b>Uchepo:</b> tamal de elote tierno, dulce o con queso. <b>Pescado blanco:</b> especie emblemática del lago de Pátzcuaro. Todo parte de la milpa: maíz, frijol, calabaza y chile.</p>` },
+            { t: "En el telar", d: `<p class="text-lg leading-snug text-[#324a40]"><b>Guanengo:</b> blusa bordada. <b>Enagüilla:</b> falda plisada. <b>Faja:</b> tejida en telar de cintura. <b>Sombrero de cuatro pedradas:</b> distintivo de la indumentaria masculina.</p>` }
+          ], "Descubre más"),
+          videos([
+            { id: "Gz-GBhoWBN4", t: "Así es la vida de los indígenas purépechas", min: "1 min", vertical: true }
+          ], "Video"),
+          links([
+            link(yt("corundas uchepos receta michoacana"), "Cómo se preparan", "Videos de cocina tradicional.", "chef-hat"),
+            link(yt("telar de cintura purépecha"), "Telar de cintura", "Videos del oficio textil.", "shirt")
+          ])
+        ],
+        economia: [
+          picker([
+            { t: "Agricultura de temporal", d: "Cultivos que dependen de las lluvias: maíz, frijol y calabaza en la milpa." },
+            { t: "Pesca artesanal", d: "Se practica en el lago de Pátzcuaro con redes tradicionales, incluida la famosa red de \"mariposa\"." },
+            { t: "Santa Clara del Cobre", d: "Pueblo mágico famoso por sus piezas de cobre martillado a mano.", href: osm("Santa Clara del Cobre, Michoacán"), cta: "Ver en el mapa" },
+            { t: "Ocumicho", d: "Comunidad conocida por sus figuras de barro con diablitos y escenas fantásticas.", href: osm("Ocumicho, Michoacán"), cta: "Ver en el mapa" },
+            { t: "Textilería y carpintería", d: "Paracho es famoso por sus guitarras; el telar y la madera dan identidad a muchas comunidades." }
+          ], "Conoce cada oficio"),
+          links([
+            link(yt("artesanías de Michoacán Santa Clara del Cobre"), "Videos · Artesanías", "Cobre, barro y textiles.", "hammer"),
+            link(wiki("Paracho_de_Verduzco"), "Wikipedia · Paracho", "Capital de la guitarra.", "music")
+          ])
+        ],
+        recursos: [
+          picker([
+            { t: "Bosque templado", d: "Pinos y encinos de la Meseta que regulan el clima y recargan los mantos acuíferos." },
+            { t: "Lagos y manantiales", d: "El lago de Pátzcuaro y los manantiales de la Ciénega sostienen pesca, agricultura y biodiversidad." },
+            { t: "Mariposa monarca", d: "Hiberna cada invierno en los bosques de oyamel del oriente de Michoacán, en la Reserva de la Biosfera Mariposa Monarca.", href: "https://www.gob.mx/conanp", cta: "Sitio de la CONANP" }
+          ], "Recursos del territorio"),
+          links([
+            link(wiki("Reserva_de_la_Biosfera_de_la_Mariposa_Monarca"), "Reserva Mariposa Monarca", "Información en Wikipedia.", "bug"),
+            link(wiki("Lago_de_P%C3%A1tzcuaro"), "Lago de Pátzcuaro", "Ecología e historia del lago.", "waves")
+          ])
+        ],
+        aprovechamiento: [
+          tabs([
+            { t: "Suelo", d: `<p class="text-lg leading-snug text-[#324a40]">La milpa combina maíz, frijol y calabaza: el frijol fija nitrógeno, la calabaza cubre el suelo y el maíz da soporte. Un sistema que conserva la fertilidad.</p>` },
+            { t: "Agua", d: `<p class="text-lg leading-snug text-[#324a40]">La pesca lacustre tradicional usa redes y canoas de bajo impacto, con conocimiento de temporadas y especies.</p>` },
+            { t: "Bosque", d: `<p class="text-lg leading-snug text-[#324a40]">Madera y plantas medicinales se recolectan de forma comunitaria, cuidando la regeneración del monte.</p>` }
+          ], "Elige un recurso"),
+          links([
+            link(wiki("Milpa"), "Wikipedia · Milpa", "El sistema agrícola mesoamericano.", "sprout"),
+            link(yt("Cherán manejo comunitario del bosque"), "Cherán K'eri", "Un caso de manejo comunitario.", "trees")
+          ])
+        ],
+        conservacion: [
+          quiz([
+            { q: "¿Qué tipo de lengua es el purépecha?", o: ["Una lengua náhuatl", "Una lengua aislada", "Una lengua maya"], a: 1, f: "No tiene parentesco conocido con otras lenguas." },
+            { q: "¿Qué sistema agrícola combina maíz, frijol y calabaza?", o: ["La milpa", "El monocultivo", "La chinampa"], a: 0, f: "La milpa respeta los ciclos naturales." },
+            { q: "Según la cosmovisión purépecha, la conservación es…", o: ["Una tarea aislada", "Una relación de reciprocidad con el territorio", "Solo un asunto del gobierno"], a: 1, f: "Personas, animales, montes y lagos son interdependientes." }
+          ], "Pon a prueba lo aprendido"),
+          links([
+            link(wiki("Cher%C3%A1n"), "Wikipedia · Cherán", "Gobierno comunitario y defensa del bosque.", "shield"),
+            link("https://www.gob.mx/conanp", "CONANP", "Áreas naturales protegidas de México.", "leaf")
+          ])
+        ]
+      };
+
+      panels.forEach((panel) => {
+        const name = panel.id.replace("panel-", "");
+        const host = el(`<div class="col-span-full grid gap-8 border-t border-dashed border-[#173f35]/25 p-7 md:grid-cols-2 md:p-10"></div>`);
+        panel.appendChild(host);
+        (extras[name] || []).forEach((node) => {
+          node.classList.remove("mt-8");
+          // videos y links ocupan todo el ancho; el resto va en dos columnas
+          if (node.querySelector(".facade, .resource-card")) node.classList.add("md:col-span-2");
+          host.appendChild(node);
+        });
+
+        const idx = order.indexOf(name);
+        const nav = el(`<div class="panel-nav md:col-span-2">
+          <button type="button" data-d="-1" ${idx === 0 ? "disabled" : ""}>← Anterior</button>
+          <button type="button" data-d="1" ${idx === order.length - 1 ? "disabled" : ""}>Siguiente →</button></div>`);
+        nav.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => step(Number(b.dataset.d))));
+        host.appendChild(nav);
+      });
+      lucide.createIcons();
+
+      document.addEventListener("keydown", (event) => {
+        if (lightbox.classList.contains("open") || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
+        if (event.key === "ArrowRight") step(1);
+        if (event.key === "ArrowLeft") step(-1);
+      });
+
+      activatePanel(location.hash.slice(1) || order[0]);
 
       closeButton.addEventListener("click", () => {
         activatePanel("geografia");
