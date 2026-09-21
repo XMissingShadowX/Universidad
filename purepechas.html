@@ -290,7 +290,7 @@
     }
 
     /* Progreso y navegación */
-    .progress-bar { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; margin-top: 10px; }
+    .progress-bar { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; margin-top: 10px; }
     .progress-bar button { height: 8px; border: 0; padding: 0; background: rgba(23,63,53,.2); cursor: pointer; transition: background .2s; }
     .progress-bar button.done { background: var(--ochre); }
     .progress-bar button.current { background: var(--terracotta); }
@@ -371,9 +371,9 @@
         <div class="mb-5 flex flex-col justify-between gap-3 md:flex-row md:items-end">
           <div>
             <p class="top-line text-[12px] font-bold text-[#b95336]">Recorrido visual</p>
-            <h2 id="journey-title" class="mt-2 text-2xl font-bold leading-none text-[#173f35]">Ocho hilos para entender un territorio vivo</h2>
+            <h2 id="journey-title" class="mt-2 text-2xl font-bold leading-none text-[#173f35]">Doce hilos para entender un territorio vivo</h2>
           </div>
-          <p id="progress-text" class="top-line text-xs text-[#5c6752]" aria-live="polite">01 / 08 · UBICACIÓN GEOGRÁFICA</p>
+          <p id="progress-text" class="top-line text-xs text-[#5c6752]" aria-live="polite">01 / 12 · UBICACIÓN GEOGRÁFICA</p>
         </div>
         <div id="progress-bar" class="progress-bar mb-5" aria-hidden="true"></div>
 
@@ -418,6 +418,26 @@
               <i data-lucide="leaf" class="node-icon" width="18" height="18" aria-hidden="true"></i>
               <span class="node-number mt-2 block">08</span>
               <span class="mt-1 block text-lg font-bold">Prácticas de conservación</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="problemas" aria-pressed="false">
+              <i data-lucide="triangle-alert" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">09</span>
+              <span class="mt-1 block text-lg font-bold">Problemas ambientales</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="consecuencias" aria-pressed="false">
+              <i data-lucide="cloud-sun" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">10</span>
+              <span class="mt-1 block text-lg font-bold">Consecuencias</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="acciones" aria-pressed="false">
+              <i data-lucide="sprout" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">11</span>
+              <span class="mt-1 block text-lg font-bold">Acciones comunitarias</span>
+            </button>
+            <button type="button" class="node p-4" data-panel="reflexion" aria-pressed="false">
+              <i data-lucide="heart-handshake" class="node-icon" width="18" height="18" aria-hidden="true"></i>
+              <span class="node-number mt-2 block">12</span>
+              <span class="mt-1 block text-lg font-bold">Reflexión final</span>
             </button>
           </div>
         </nav>
@@ -582,6 +602,83 @@
             </div>
           </article>
 
+          <!-- 09 · RETOS DEL TERRITORIO -->
+          <article id="panel-problemas" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/4451/field-fallen-tree-tree-clearing.jpg?auto=compress&cs=tinysrgb&w=1280" alt="Campo con un árbol caído, que representa la deforestación.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">09 · RETOS DEL TERRITORIO</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Problemas ambientales que afectan a la comunidad</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">Entre los principales retos se encuentran la tala ilegal y el cambio de uso de suelo, la contaminación y disminución del agua en lagos y manantiales, así como los efectos del cambio climático. La expansión agrícola desordenada, los incendios forestales y la presión sobre los bosques reducen la capacidad del territorio para regenerarse.</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="tag-chip px-2 py-1">Deforestación</span>
+                <span class="tag-chip px-2 py-1">Contaminación del agua</span>
+                <span class="tag-chip px-2 py-1">Cambio climático</span>
+              </div>
+              <div class="fact-box mt-6 p-4">
+                <p class="fact-label">Un reto compartido</p>
+                <p class="mt-1 text-lg font-semibold text-[#173f35]">Cuando se deterioran el bosque y el agua, también se ponen en riesgo los oficios, la alimentación y la continuidad de la vida comunitaria.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 10 · IMPACTOS EN LA VIDA -->
+          <article id="panel-consecuencias" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/60013/desert-drought-dehydrated-clay-soil-60013.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Árbol solitario sobre suelo agrietado por la sequía.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">10 · IMPACTOS EN LA VIDA</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Consecuencias en cultura, economía y calidad de vida</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">Los problemas ambientales afectan de manera directa la vida cotidiana. La escasez de agua, la pérdida de bosques y la disminución de especies alteran las actividades productivas, encarecen recursos esenciales y dificultan la transmisión de conocimientos ligados al territorio.</p>
+              <div class="mt-6 grid gap-3 sm:grid-cols-3">
+                <div class="fact-box p-4">
+                  <p class="fact-label">Cultura</p>
+                  <p class="mt-1 font-semibold text-[#173f35]">Se debilitan prácticas, celebraciones y saberes relacionados con el lago, el monte, la milpa y las plantas medicinales.</p>
+                </div>
+                <div class="fact-box p-4">
+                  <p class="fact-label">Economía</p>
+                  <p class="mt-1 font-semibold text-[#173f35]">La pesca, la agricultura, la artesanía y el turismo comunitario pueden disminuir al deteriorarse los recursos naturales.</p>
+                </div>
+                <div class="fact-box p-4">
+                  <p class="fact-label">Calidad de vida</p>
+                  <p class="mt-1 font-semibold text-[#173f35]">Aumentan la incertidumbre, los gastos por agua y alimentos, y la necesidad de migrar en busca de oportunidades.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 11 · CUIDADO COLECTIVO -->
+          <article id="panel-acciones" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/15509950/pexels-photo-15509950.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Persona sembrando un árbol como parte de una actividad de reforestación.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">11 · CUIDADO COLECTIVO</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Acciones comunitarias para conservar los recursos naturales</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">Las comunidades Purépechas impulsan formas de cuidado que combinan conocimientos tradicionales y organización colectiva. Mediante asambleas, faenas y acuerdos comunitarios se protege el territorio, se restauran áreas dañadas y se promueve un aprovechamiento responsable de los bienes comunes.</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="tag-chip px-2 py-1">Reforestación</span>
+                <span class="tag-chip px-2 py-1">Faenas comunitarias</span>
+                <span class="tag-chip px-2 py-1">Vigilancia del bosque</span>
+                <span class="tag-chip px-2 py-1">Cuidado del agua</span>
+              </div>
+              <div class="fact-box mt-6 p-4">
+                <p class="fact-label">Organización comunitaria</p>
+                <p class="mt-1 text-lg font-semibold text-[#173f35]">El trabajo compartido fortalece la responsabilidad sobre los bosques, los manantiales y las tierras de cultivo.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 12 · MIRAR HACIA EL FUTURO -->
+          <article id="panel-reflexion" class="detail-panel grid-cols-1 md:grid-cols-[.9fr_1.1fr]">
+            <img loading="lazy" class="detail-photo" src="https://images.pexels.com/photos/20142824/pexels-photo-20142824.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Mujeres indígenas reunidas con vestimenta tradicional colorida.">
+            <div class="p-7 md:p-10">
+              <p class="detail-index">12 · MIRAR HACIA EL FUTURO</p>
+              <h2 class="mt-3 text-2xl font-bold leading-none text-[#173f35]">Una enseñanza Purépecha para el desarrollo sustentable</h2>
+              <p class="mt-5 text-lg leading-snug text-[#324a40]">Una práctica que puede servir de ejemplo es el manejo comunitario del territorio: decidir en colectivo, aprovechar los recursos con límites y reconocer que el bienestar de las personas depende de la salud del agua, el suelo y el bosque. Esta visión une identidad cultural, participación y cuidado ambiental.</p>
+              <div class="fact-box mt-6 p-4">
+                <p class="fact-label">Reflexión final</p>
+                <p class="mt-1 text-lg font-semibold text-[#173f35]">El desarrollo sustentable puede comenzar cuando una comunidad entiende que conservar la naturaleza también significa conservar su memoria, su economía y su futuro.</p>
+              </div>
+            </div>
+          </article>
+
         </section>
 
         <section class="mt-12">
@@ -656,14 +753,18 @@
       const closeLightbox = document.querySelector(".lightbox-close");
 
       const labels = {
-        geografia: "01 / 08 · UBICACIÓN GEOGRÁFICA",
-        lengua: "02 / 08 · LENGUA",
-        tradiciones: "03 / 08 · COSTUMBRES Y TRADICIONES",
-        alimentacion: "04 / 08 · ALIMENTACIÓN Y VESTIMENTA",
-        economia: "05 / 08 · ACTIVIDADES ECONÓMICAS",
-        recursos: "06 / 08 · RECURSOS NATURALES",
-        aprovechamiento: "07 / 08 · APROVECHAMIENTO DE RECURSOS",
-        conservacion: "08 / 08 · PRÁCTICAS DE CONSERVACIÓN"
+        geografia: "01 / 12 · UBICACIÓN GEOGRÁFICA",
+        lengua: "02 / 12 · LENGUA",
+        tradiciones: "03 / 12 · COSTUMBRES Y TRADICIONES",
+        alimentacion: "04 / 12 · ALIMENTACIÓN Y VESTIMENTA",
+        economia: "05 / 12 · ACTIVIDADES ECONÓMICAS",
+        recursos: "06 / 12 · RECURSOS NATURALES",
+        aprovechamiento: "07 / 12 · APROVECHAMIENTO DE RECURSOS",
+        conservacion: "08 / 12 · PRÁCTICAS DE CONSERVACIÓN",
+        problemas: "09 / 12 · PROBLEMAS AMBIENTALES",
+        consecuencias: "10 / 12 · CONSECUENCIAS",
+        acciones: "11 / 12 · ACCIONES COMUNITARIAS",
+        reflexion: "12 / 12 · REFLEXIÓN FINAL"
       };
 
       const order = Object.keys(labels);
@@ -951,6 +1052,51 @@
           links([
             link(wiki("Cher%C3%A1n"), "Wikipedia · Cherán", "Gobierno comunitario y defensa del bosque.", "shield"),
             link("https://www.gob.mx/conanp", "CONANP", "Áreas naturales protegidas de México.", "leaf")
+          ])
+        ],
+        problemas: [
+          picker([
+            { t: "Deforestación", d: "La tala ilegal y el cambio de uso de suelo reducen los bosques; los incendios y la expansión agrícola desordenada aumentan la presión sobre ellos." },
+            { t: "Agua", d: "Los lagos y manantiales sufren contaminación y disminución de su caudal, lo que afecta la pesca, el riego y la vida cotidiana." },
+            { t: "Cambio climático", d: "Altera lluvias y temporadas, con efectos sobre los cultivos de temporal y la capacidad del territorio para regenerarse." }
+          ], "Conoce cada reto"),
+          links([
+            link(wiki("Deforestaci%C3%B3n"), "Wikipedia · Deforestación", "Causas y efectos.", "trees"),
+            link(wiki("Cambio_clim%C3%A1tico"), "Wikipedia · Cambio climático", "Conceptos y consecuencias.", "cloud-sun")
+          ])
+        ],
+        consecuencias: [
+          tabs([
+            { t: "Cultura", d: `<p class="text-lg leading-snug text-[#324a40]">Se debilitan prácticas, celebraciones y saberes relacionados con el lago, el monte, la milpa y las plantas medicinales.</p>` },
+            { t: "Economía", d: `<p class="text-lg leading-snug text-[#324a40]">La pesca, la agricultura, la artesanía y el turismo comunitario pueden disminuir al deteriorarse los recursos naturales.</p>` },
+            { t: "Calidad de vida", d: `<p class="text-lg leading-snug text-[#324a40]">Aumentan la incertidumbre, los gastos por agua y alimentos, y la necesidad de migrar en busca de oportunidades.</p>` }
+          ], "Explora el impacto"),
+          links([
+            link(wiki("Sequ%C3%ADa"), "Wikipedia · Sequía", "Escasez de agua y sus efectos.", "droplets"),
+            link(wiki("Cher%C3%A1n"), "Wikipedia · Cherán", "Una comunidad que defendió su bosque.", "shield")
+          ])
+        ],
+        acciones: [
+          accordion([
+            { t: "Reforestación", d: "Se siembran árboles nativos para restaurar áreas dañadas y recuperar la cobertura del bosque." },
+            { t: "Faenas comunitarias", d: "Trabajo colectivo y voluntario en el que la comunidad se organiza para cuidar y mejorar bienes comunes." },
+            { t: "Vigilancia del bosque", d: "Las comunidades organizan rondas y acuerdos para proteger el monte de la tala ilegal y los incendios." },
+            { t: "Cuidado del agua", d: "Se protegen manantiales, lagos y arroyos mediante acuerdos comunitarios y un uso responsable." }
+          ], "Formas de cuidado"),
+          links([
+            link(wiki("Cher%C3%A1n"), "Wikipedia · Cherán", "Gobierno comunitario y defensa del bosque.", "shield"),
+            link("https://www.gob.mx/conanp", "CONANP", "Áreas naturales protegidas de México.", "leaf")
+          ])
+        ],
+        reflexion: [
+          accordion([
+            { t: "Decidir en colectivo", d: "Las asambleas y los acuerdos comunitarios dan legitimidad y continuidad al cuidado del territorio." },
+            { t: "Aprovechar con límites", d: "Tomar solo lo que el monte, el lago y el suelo pueden regenerar asegura recursos para las próximas generaciones." },
+            { t: "Bienestar y naturaleza", d: "La salud de las personas depende de la salud del agua, el suelo y el bosque." }
+          ], "Tres ideas para llevarte"),
+          links([
+            link(wiki("Desarrollo_sostenible"), "Wikipedia · Desarrollo sostenible", "Definición y objetivos.", "sprout"),
+            link("https://www.un.org/sustainabledevelopment/es/", "ONU · Desarrollo sostenible", "Objetivos de Desarrollo Sostenible.", "globe")
           ])
         ]
       };
