@@ -6,6 +6,7 @@
   <title>Cultura Purépecha · Infografía interactiva</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -722,6 +723,23 @@
           </div>
         </section>
 
+                <section class="mt-8" aria-labelledby="qr-title">
+          <div class="media-card mx-auto flex max-w-3xl flex-col items-center gap-5 rounded-2xl p-5 text-center sm:flex-row sm:text-left">
+            <a href="https://universidad-rose.vercel.app/purepechas.html" target="_blank" rel="noopener noreferrer" class="shrink-0 border border-[#173f35]/25 bg-[#fffaf0] p-2" aria-label="Abrir universidad-rose.vercel.app/purepechas.html">
+              <canvas id="qr-canvas" width="160" height="160" class="h-40 w-40" role="img" aria-label="Código QR que lleva a universidad-rose.vercel.app/purepechas.html"></canvas>
+            </a>
+            <div>
+              <p class="top-line text-[10px] font-bold text-[#b95336]">Código QR</p>
+              <h3 id="qr-title" class="mt-1 text-2xl font-bold text-[#173f35]">Llévate la infografía</h3>
+              <p class="mt-2 text-lg leading-snug text-[#324a40]">Escanea el código con tu celular para abrir esta página o compártela con quien quieras.</p>
+              <a class="mt-3 inline-flex items-center gap-2 text-sm font-bold text-[#b95336] underline" href="https://universidad-rose.vercel.app/purepechas.html" target="_blank" rel="noopener noreferrer">
+                universidad-rose.vercel.app/purepechas.html
+                <i data-lucide="external-link" width="14" height="14" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </section>
+
         <footer class="mt-8 flex flex-col items-start justify-between gap-4 border-t border-[#173f35]/25 pt-5 md:flex-row md:items-center">
           <p class="max-w-2xl text-lg italic text-[#36584a]">Explorar la cultura Purépecha es reconocer una presencia viva: comunidades que crean, hablan, cultivan y protegen sus territorios.</p>
           <button id="close-detail" type="button" class="close-detail flex items-center gap-2 px-3 py-2">
@@ -743,6 +761,23 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
+
+      const qrCanvas = document.getElementById("qr-canvas");
+      if (window.qrcode && qrCanvas) {
+        const qr = qrcode(0, "M");
+        qr.addData("https://universidad-rose.vercel.app/purepechas.html");
+        qr.make();
+        const n = qr.getModuleCount(), margin = 2, size = qrCanvas.width, cell = size / (n + margin * 2);
+        const ctx = qrCanvas.getContext("2d");
+        ctx.fillStyle = "#fffaf0";
+        ctx.fillRect(0, 0, size, size);
+        ctx.fillStyle = "#173f35";
+        for (let r = 0; r < n; r++) {
+          for (let c = 0; c < n; c++) {
+            if (qr.isDark(r, c)) ctx.fillRect(Math.floor((c + margin) * cell), Math.floor((r + margin) * cell), Math.ceil(cell), Math.ceil(cell));
+          }
+        }
+      }
 
       const nodes = Array.from(document.querySelectorAll(".node"));
       const panels = Array.from(document.querySelectorAll(".detail-panel"));
