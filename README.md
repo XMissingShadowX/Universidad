@@ -1,4 +1,4 @@
-﻿# Universidad
+# Universidad
 
 Proyecto estático de portafolio académico para materias y trabajos universitarios, centrado en el curso de Desarrollo Sustentable y en el proyecto sobre la cultura Purépecha.
 
@@ -11,6 +11,25 @@ Este repositorio contiene una estructura de navegación por materias con una lan
 - `index.html` — menú principal de materias y proyectos.
 - `desarrollo-sustentable.html` — presentación de la materia y trabajos relacionados.
 - `purepechas.html` — contenido visual e interactivo sobre la cultura purépecha.
+
+## Arquitectura de carpetas
+
+```
+Universidad/
+├── index.html                    # Menú principal de materias
+├── desarrollo-sustentable.html   # Página de la materia Desarrollo Sustentable
+├── purepechas.html               # Proyecto interactivo sobre la cultura Purépecha
+├── README.md
+└── Etica/
+    └── Jeopardy mexicas/         # Juego tipo Jeopardy sobre cultura mexica
+        ├── jeopardyMexicas.html  # Página del juego
+        ├── style.css             # Estilos
+        ├── script.js             # Lógica del juego
+        └── data.js               # Categorías, preguntas y respuestas
+```
+
+- Las páginas de Desarrollo Sustentable están en la raíz para que las rutas del sitio publicado (Vercel) sigan funcionando.
+- Cada materia nueva con múltiples archivos va en su propia carpeta (como `Etica/`), con un subdirectorio por proyecto.
 
 ## Tecnologías
 
