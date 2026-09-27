@@ -16,10 +16,12 @@ Este repositorio contiene una estructura de navegación por materias con una lan
 
 ```
 Universidad/
-├── index.html                    # Menú principal de materias
-├── desarrollo-sustentable.html   # Página de la materia Desarrollo Sustentable
-├── purepechas.html               # Proyecto interactivo sobre la cultura Purépecha
 ├── README.md
+├── Desarrollo Sustentable/
+│   └── purepechas/
+│       ├── index.html                    # Menú principal de materias
+│       ├── desarrollo-sustentable.html   # Página de la materia
+│       └── purepechas.html               # Proyecto interactivo sobre la cultura Purépecha
 └── Etica/
     └── Jeopardy mexicas/         # Juego tipo Jeopardy sobre cultura mexica
         ├── jeopardyMexicas.html  # Página del juego
@@ -28,7 +30,7 @@ Universidad/
         └── data.js               # Categorías, preguntas y respuestas
 ```
 
-- Las páginas de Desarrollo Sustentable están en la raíz para que las rutas del sitio publicado (Vercel) sigan funcionando.
+- Las tres páginas HTML enlazan entre sí con rutas relativas, por lo que deben permanecer juntas en la misma carpeta.
 - Cada materia nueva con múltiples archivos va en su propia carpeta (como `Etica/`), con un subdirectorio por proyecto.
 
 ## Tecnologías
@@ -40,7 +42,7 @@ Universidad/
 
 ## Cómo usarlo
 
-1. Abre `index.html` en el navegador.
+1. Abre `Desarrollo Sustentable/purepechas/index.html` en el navegador.
 2. Navega por la sección de materias.
 3. Explora la información y recursos del proyecto seleccionado.
 
