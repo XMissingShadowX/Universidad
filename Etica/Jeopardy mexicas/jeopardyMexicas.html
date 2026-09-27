@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jeopardy: Los Mexicas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Jeopardy: Los Mexicas</h1>
+  <div id="marcadores"></div>
+  <div id="tablero"></div>
+
+  <div id="modal" class="oculto">
+    <div class="tarjeta">
+      <div id="puntos"></div>
+      <div id="timer">10</div>
+      <p id="pregunta"></p>
+      <p id="respuesta" class="oculto"></p>
+      <button id="btnMostrar">Mostrar respuesta</button>
+      <div id="acciones" class="oculto">
+        <span>¿Quién acertó?</span>
+        <div id="botonesEquipos"></div>
+        <button id="btnNadie">Nadie</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
